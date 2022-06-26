@@ -1,8 +1,10 @@
 package it.polito.tdp.artsmia;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.artsmia.model.Artista;
 import it.polito.tdp.artsmia.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,12 +51,22 @@ public class ArtsmiaController {
     void doCalcolaPercorso(ActionEvent event) {
     	txtResult.clear();
     	txtResult.appendText("Calcola percorso");
+    	int id = Integer.parseInt(txtArtista.getText());
+    	Artista a = model.getArt(id);
+    	List<Artista> percorso = model.calcolaPercorso(a);
+    	for(Artista aa : percorso) {
+    		txtResult.appendText(aa.getName()+"\n");
+    	}
+    	
     }
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
     	txtResult.clear();
-    	txtResult.appendText("Crea grafo");
+    	txtResult.appendText("Crea grafo \n");
+    	String s = boxRuolo.getValue();
+    	String msg = model.creaGrafo(s);
+    	txtResult.appendText(msg);
     }
 
     public void setModel(Model model) {
